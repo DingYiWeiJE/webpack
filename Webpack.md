@@ -489,11 +489,20 @@ npm i @babel/preset-react -D
 
 ```
  {
-    test: /\.js$/i,
-    use: {
+    
+    
+    
       loader: 'babel-loader'
     }
   }
+```
+
+
+
+### HTML Webpack Plugin
+
+```
+
 ```
 
 
