@@ -283,3 +283,218 @@ npm install xxx  --save-dev  开发依赖
 
 
 
+## webpack主流程
+
+### 与打包流程强相关的配置项：
+
+**输入输出：**
+
+​	**entry：** 用于定义项目入口文件
+
+​	**context：**项目执行上下文路径
+
+​	**output：** 配置产物输出路径
+
+**模块处理**
+
+​	**resolve：**用于配置模块路径解析规则，可用于帮助Webpack更精准，高效的找到模块
+
+​	**module：** 用于配置模块加载规则， 例如针对什么类型的资源需要使用那些Loader进行处理
+
+​	**externals：** 用于声明外部资源，webpack会直接胡虏肉这部分资源，跳过这些资源的解析、打包操作
+
+**后处理**
+
+​	**optimization：** 用于控制如何 **优化产物包体积** ， 内置Dead Code Elimination、 Scope Hosting、 代码混淆、代码压缩等功能
+
+​	**target：** 用于配置编译产物的目标运行环境，支持web、 node、 electron等值，不同值最终产物会有所差异
+
+​	**mode**：编译模式短语，支持development、production等值， 可以理解为一种声明环境的短语
+
+
+
+### 工具类配置
+
+**开发效率** 
+
+​	**watch：** 用于配置持续监听文件变化，持续构建
+
+​	**devtool：** 用于配置产物Sourcemap生成规则
+
+​	**devServer：** 用于配置HMR强相关的开发服务器功能
+
+**性能优化类**
+
+​	**cache：** Webpack5之后，该项用于控制如何缓存编译过程信息与编译结果
+
+​	**performance：** 用于配置当产物大小超过阈值时，如何通知开发者
+
+**日志类**
+
+​	**stats：** 用于精确地控制编译过程的日志内容，在做比较细致的性能调试时非常有用
+
+​	**infrastructurelogging：** 用于控制日志输出方式， 例如如何通过该配置，将日志输出到磁盘文件 
+
+
+
+
+
+## webpack初始化命令
+
+```
+npx webpack init ./ --force --template=default
+```
+
+在webpack5以上，除了安装webpack之外还要安装webpack-cli 命令行工具
+
+
+
+
+
+
+
+## 插件
+
+### mini-css-extract-plugin
+
+把样式代码生成一个css文件的插件
+
+如果不适用这个插件，而是使用的style-loader的话，就不会生成一个css样式文件，而是打包到js文件当中，由js语句动态的写入<style/>标签来添加样式的
+
+
+
+**安装**
+
+```
+npm i mini-css-extract-plugin -D
+```
+
+**实例化插件**
+
+```
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+```
+
+**注册插件**
+
+```
+plugin: [new MiniCssExtractPlugin()]
+```
+
+**使用插件**
+
+```
+module: {
+    rules: [
+      {
+        test: /\.less$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader',
+        ],
+      }
+    ]
+}
+```
+
+**总结**
+
+在实际开发中，一般使用style-loader,  MiniCssExtractPlugin用于生产环境。因为style-loader不能用于cdn缓存，而后者可以生成一个单独的文件。这样的花，在浏览器加载资源时是可以并发的，并且我们的资源文件是可以浏览器缓存的。
+
+
+
+### postcss
+
+使用插件
+
+```
+module: {
+    rules: [
+      {
+        test: /\.less$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
+      }
+    ]
+}
+```
+
+#### 配置插件
+
+在根目录创建一个 postcss.config.js文件
+
+**添加前缀**：
+
+```
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
+
+需要安装
+
+```
+npm i autoprefixer -D
+```
+
+
+
+**cssnext  (css4)**
+
+包含自动添加前缀功能
+
+```
+module.exports = {
+  plugins: [
+    require('postcss-cssnext')
+  ]
+}
+```
+
+需安装
+
+```
+npm i postcss-cssnext -D
+```
+
+
+
+### babel
+
+**安装**
+
+```
+npm i @babel/preset-react -D
+```
+
+**配置**
+
+在根目录创建一个babel.config.json文件
+
+```
+{
+  "presets": [
+    "@babel/preset-react"
+  ]
+}
+```
+
+在webpack.config.js中
+
+```
+ {
+    test: /\.js$/i,
+    use: {
+      loader: 'babel-loader'
+    }
+  }
+```
+
+
+
