@@ -501,9 +501,58 @@ npm i @babel/preset-react -D
 
 ### HTML Webpack Plugin
 
-```
+配置了这个插件之后，webpack打包的inde.html文件会自动的link生成的main.js和main.css
+
+**安装**
 
 ```
+npm i html-webpack-plugin -D
+```
+
+**实例化**
+
+```
+const HtmlWebpckPlugin = require('html-webpack-plugin')
+```
+
+**注册**
+
+```
+  plugins: [
+    new HtmlWebpckPlugin({
+    	template: './index.html'
+    })
+  ],
+```
 
 
+
+## devServer
+
+**安装**
+
+```
+npm i webpack-dev-server -D
+```
+
+**配置**
+
+创建一个新的webpack.config2.js
+
+```
+mode: 'development'
+devServer: {
+    static: {
+      directory: path.join(__dirname, 'publics'), // 指定静态资源文件
+    },
+    compress: true,
+    port: 9000
+},
+```
+
+**运行**
+
+```
+npx webpack serve --config webpack.config2.js
+```
 
