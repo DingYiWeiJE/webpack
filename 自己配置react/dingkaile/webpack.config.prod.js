@@ -1,15 +1,15 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { devServer } = require('../../实践出真知/webpack.config');
 
 const config = {
   entry: './src/index.js',
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, './dist'),
+    publicPath: 'https://dingkaile-1326899515.cos.ap-guangzhou.myqcloud.com'
   },
-  mode: 'development',
+  mode: 'production',
   cache: {
     type: 'memory'
   },
@@ -19,23 +19,6 @@ const config = {
       template: './public/index.html'
     })
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public')
-    },
-    compress: true,
-    port: 9000,
-    hot: true,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:3000',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '^/api': ''
-    //     }
-    //   }
-    // }
-  },
   performance: {
     // hints: 'warning', // 枚举
     hints: 'error', // 性能中抛出错误
@@ -62,8 +45,8 @@ const config = {
       {
         test: /\.css$/i,
         use: [
-          // MiniCssExtractPlugin.loader, 'css-loader'],
-          "style-loader",
+          MiniCssExtractPlugin.loader,
+          // "style-loader",
           "css-loader"
           // "./loader",
           // "postcss-loader",

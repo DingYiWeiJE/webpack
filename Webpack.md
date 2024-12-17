@@ -672,7 +672,7 @@ module.exports = config;
 
 创建babel.config.json文件
 
-```
+```json
 {
   "presets": [
     ["@babel/preset-react", { 
