@@ -1,3 +1,15 @@
-console.log('%c🎈From Ding 🚀🚀🚀🚀🚀🚀🚀🚀🚀',
-'padding: 5px; background: pink;border-radius: 10px; color: white;font-size: 1em;border: 2px solid #75664d',
-'丁凯乐来巡山');
+import './index.less'; 
+import './index.css'
+
+function insertImageEliment(imageFile) {
+    const img = new Image();
+    img.src = imageFile;
+    img.classList.add('image');
+    document.body.appendChild(img);
+}
+
+import image1 from './imgs/img1.jpg'
+import image2 from './imgs/img2.png'
+
+insertImageEliment(image1);
+insertImageEliment(image2);

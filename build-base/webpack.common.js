@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
   entry: path.join(__dirname, '../', 'src/index.js'),
@@ -7,11 +8,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader'],
       },
       {
         test: /\.(js|jsx)$/,
@@ -24,6 +25,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../src/index.html'),
       filename: 'index.html',
+    }),
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(process.env.NODE_ENV)
     })
   ]
 }

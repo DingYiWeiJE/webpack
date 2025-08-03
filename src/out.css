@@ -1,0 +1,5 @@
+.another{
+    display: flex;
+    transform: rotate(45deg);
+    background-color: red;
+}

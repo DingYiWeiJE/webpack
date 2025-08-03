@@ -4,9 +4,6 @@ const path = require('path')
 
 module.exports = merge(require('./webpack.common.js'), {
   mode: 'development',
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-  },
   module: {
     rules: [
       {
@@ -15,19 +12,24 @@ module.exports = merge(require('./webpack.common.js'), {
       }
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      // window.ENV = 'development'
-      ENV: JSON.stringify('development')  
-    })
-  ],
   devServer: {
     static: {
       directory: path.resolve(__dirname, '../dist')
     },
-    compress: true,
+    compress: true, // 启动gzip压缩
     open: true,
-    port: 9000
+    port: 9000,
+    proxy: [
+      {
+        context: ['/api'],
+        target: 'http://localhost:3000'
+      },
+      {
+        context: ['/api2'],
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api2': '' }
+      }
+    ],
   }
 
 })

@@ -4,16 +4,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack serve --config build-base/webpack.dev.js"
+    "dev": "webpack-dev-server --config build-base/webpack.dev.js",
+    "build": "webpack --config build-base/webpack.prod.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "autoprefixer": "^10.4.21",
     "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
+    "less-loader": "^12.3.0",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
     "typescript": "^5.9.2",
     "webpack": "^5.101.0",
     "webpack-cli": "^6.0.1",
