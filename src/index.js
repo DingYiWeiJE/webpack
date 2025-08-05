@@ -21,3 +21,9 @@ console.log(_.join(['a', 'b', 'c'], '---'));
 
 
 console.log(add(1, 2));
+
+setTimeout(() => {
+   import ('./component/sync').then((sync) => {
+        console.log(sync.default.message)
+   })
+}, 3000)
